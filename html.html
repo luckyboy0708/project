@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>html</title>
+</head>
+<body>
+   <script>
+     var xhr = new XMLHttpRequest()
+     xhr.open('GET', '/project/cate.json', true)  //注意这里的路径是文件夹名+json的文件名
+     xhr.send()
+     xhr.onload = function(){
+       console.log(JSON.parse(xhr.responseText))
+     }
+   </script>
+</body>
+</html>
