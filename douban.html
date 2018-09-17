@@ -30,7 +30,7 @@
     main>section {
     	width: 100%;
     	height: calc(100% - 45px);
-    	
+    	padding: 10px;
     	background-color: #fff;
     	
     	display: none;
@@ -49,6 +49,7 @@
     	border-bottom: 1px solid #ccc;
     }
     .item .cover {
+    	padding-right: 10px;
     	float: left;
     }
     .item .cover img {
@@ -56,9 +57,7 @@
     	height: 140px;
     }
     .item .detail {
-    	float: left; 
-    	margin-left: 10px;
-    	display: block;
+    	display: inline;
     	color: #999;
     }
     .item .detail>h2 {
@@ -141,15 +140,18 @@
     </section>
     <section id="beimei">
       <div class="container"></div>
-      <div class="loading"><span class="iconfont icon-Loading"></span></div>
+        <div class="loading"><span class="iconfont icon-Loading"></span></div>
+      
     </section>
     <section id="search">
-      <div class="search-area">
-        <input type="text" placeholder="搜索电影"><span class="button">搜索</span>
-      </div>
-      <div class="search-result">
-        <div class="container"></div>
-        <div class="loading"><span class="iconfont icon-Loading"></span></div>
+      <div class="wrap">
+        <div class="search-area">
+          <input type="text" placeholder="搜索电影"><span class="button">搜索</span>
+        </div>
+        <div class="search-result">
+          <div class="container"></div>
+          <div class="loading"><span class="iconfont icon-Loading"></span></div>
+        </div>
       </div>
     </section>
   </main>
@@ -210,13 +212,13 @@
      },
       bind: function(){
      	var _this = this
-     	this.$tabs.on('click', function(){
+     	  this.$tabs.on('click', function(){
           var $this = $(this)
           var index = $this.index()
           $this.addClass('active')
             .siblings().removeClass('active')
           _this.$pages.eq(index).fadeIn().siblings().fadeOut()
-     	})
+     	  })
       }
     }
 
@@ -270,7 +272,6 @@
       },
       renderData(data){
       	var _this = this
-      	console.log(data)
       	data.subjects.forEach(function(item){
       	 var $node = Helpers.createNode(item)
          _this.$content.append($node)
@@ -327,8 +328,9 @@
       	  _this.getData(function(data){
       	    _this.renderData(data)
           })
+        })
 
-      	})
+        console.log(this.$container.find('.search-area input'))
       	this.$container.find('.search-area input').on('keyup', function(e){
       	  if(e.key === 'Enter'){
       	  	_this.getData(function(data){
@@ -338,7 +340,7 @@
       	})
 
       	this.$container.on('scroll', function(){
-      	  if(_this.isToBottom() && !_this.isFinshed && !_this.isLoading){
+      	  if(Helpers.isToBottom(_this.$container, _this.$container.find('.wrap')) && !_this.isFinshed && !_this.isLoading){
       	  	_this.getData(function(data){
       	  	  _this.renderData(data)
       	  	  _this.page++
@@ -355,7 +357,7 @@
       	var keyword = this.$container.find('.search-area input').val()
       	this.isLoading =true
         $.ajax({
-          url:'//api.douban.com/v2/movie/search',
+          url: '//api.douban.com/v2/movie/search',
           data: {
             q: keyword
           },
@@ -371,15 +373,8 @@
       	  var $node = Helpers.createNode(item)
           _this.$content.append($node)
         })
-      },
-
-      isToBottom: function() {
-      	return this.$container.height() + this$container.scrollTop() === this.$container.find('.search-result').height() + this.$container.find('.search-area').height()
       }
     }
-
-
-  
 
     var App = {
       init: function(){
@@ -391,13 +386,6 @@
     }
  
     App.init()
-
-    //$('footer>div').on('click', function(){
-    //  $(this).addClass('active').siblings().removeClass('active')
-    //  var index = $(this).index()
-    //  $('main section').eq(index).fadeIn().siblings().fadeOut()
-    //})
-
 
   </script>
 </body>
