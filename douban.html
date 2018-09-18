@@ -63,7 +63,7 @@
     .item .detail>h2 {
     	color: #000;
     }
-    .item .detail .socre {
+    .socre {
     	color: #FF6347;
     }
     .search-area {
@@ -79,6 +79,11 @@
       line-height: 30px;
       border-radius: 3px;
     }
+   
+    #beimei,
+    #search {
+      overflow: scroll;
+     }
     .search-area>span {
     	display: inline-block;
     	color: #fff;
@@ -94,19 +99,19 @@
     	padding: 0 10px;
     }
     footer {
-    	position: absolute;
-    	bottom: 0;
-    	height: 45px;
+    	position: fixed;
+      bottom: 0;
+      height: 45px;
     	width: 100%;
     	border-top: 1px solid #ccc;
     	font-size: 12px;
     	text-align: center;
+      background-color: #fff;
     }
     footer .active{
       color: #FF5722;
     }
     footer>div {
-
       float: left;
       margin-top: 6px;
       margin-left: 20vw;
@@ -120,21 +125,6 @@
   <main>
     <section id="top250">
       <div class="container clearfix">
-      <!--  <div class="item">
-          <a href="#">
-            <div class="cover">
-              <img src="https://ws1.sinaimg.cn/large/007gSAfLly1fv8ytys1g3j30h20nraz8.jpg" alt="">
-            </div>
-            <div class="detail">
-              <h2>战狼</h2>
-              <div class="extra"><span class="socre">6.2</span>分 / 1532收藏
-              </div>
-              <div class="extra">2015 / 动作 / 战争</div>
-              <div class="extra">导演：吴京</div>
-              <div class="extra">主演：吴京、余男、斯科特·阿金斯 </div>
-            </div>
-          </a>
-        </div>  -->
       </div>
       <div class="loading"><span class="iconfont icon-Loading"></span></div>
     </section>
@@ -185,7 +175,7 @@
             </div>\
             <div class="detail">\
               <h2></h2>\
-              <div class="extra"><span class="score"></span>分 / <span class="collection"></span>收藏</div>\
+              <div class="extra"><span class="score" style="color: #FF6347;"></span>分 / <span class="collection"></span>收藏</div>\
               <div class="extra"></div>\
               <div class="extra"></div>\
               <div class="extra"></div>\
@@ -197,9 +187,9 @@
         $node.find('.detail h2').text(subject.title)
         $node.find('.detail .score').text(subject.rating.average)
         $node.find('.detail .collection').text(subject.collect_count)
-        $node.find('.detail .extra').eq(0).text(subject.year + ' / ' + subject.genres.join('、'))
-        $node.find('.detail .extra').eq(1).text('导演: ' + subject.directors.map(v=>v.name).join('、'))
-        $node.find('.detail .extra').eq(2).text('主演: ' + subject.casts.map(v=>v.name).join('、'))
+        $node.find('.detail .extra').eq(1).text(subject.year + ' / ' + subject.genres.join('、'))
+        $node.find('.detail .extra').eq(2).text('导演: ' + subject.directors.map(v=>v.name).join('、'))
+        $node.find('.detail .extra').eq(3).text('主演: ' + subject.casts.map(v=>v.name).join('、'))
         return $node
       }
     }
